@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  WeatherApp
-//
-//  Created by Angela Yu on 23/08/2015.
-//  Copyright (c) 2015 London App Brewery. All rights reserved.
-//
-
 import UIKit
 import CoreLocation
 import Alamofire
@@ -13,16 +5,10 @@ import SwiftyJSON
 
 class WeatherViewController: UIViewController , CLLocationManagerDelegate , changeCityDelegate{
     
-    //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
     let APP_ID = "e72ca729af228beabd5d20e3b7749713"
-    
-
-    //TODO: Declare instance variables here
     let LocationManger = CLLocationManager()
     let weatherModel = WeatherDataModel();
-    
-    //Pre-linked IBOutlets
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -30,22 +16,14 @@ class WeatherViewController: UIViewController , CLLocationManagerDelegate , chan
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        //TODO:Set up the location manager here.
+
         LocationManger.delegate = self
         LocationManger.desiredAccuracy = kCLLocationAccuracyHundredMeters
         LocationManger.requestWhenInUseAuthorization()
         LocationManger.startUpdatingLocation()
         
     }
-    
-    
-    
-    //MARK: - Networking
-    /***************************************************************/
-    
-    //Write the getWeatherData method here:
+
     func getWeatherData(url : String , paramters:[String:String]){
         Alamofire.request(url, method: .get, parameters: paramters).responseJSON { (response) in
             if response.result.isSuccess {
